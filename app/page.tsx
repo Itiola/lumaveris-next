@@ -2,6 +2,8 @@ import Link from "next/link";
 import { InsightCard } from "@/components/InsightCard";
 import { getInsights } from "@/lib/insights";
 
+export const dynamic = "force-dynamic";
+
 const serviceLines = [
   ["Strategy & Transformation", "Turn ambition into a focused plan for meaningful, measurable change."],
   ["Data & Analytics", "Build the insight and decision-making capability that leaders can trust."],
@@ -10,7 +12,9 @@ const serviceLines = [
 ];
 
 export default async function HomePage() {
-  const insights = await getInsights();
+  const allInsights = await getInsights();
+  const featured = allInsights.filter(insight => insight.featured);
+  const insights = (featured.length ? featured : allInsights).slice(0, 3);
   return (
     <>
       <section className="hero"><div className="container"><p className="eyebrow">Lumaveris</p><h1>Clarity for the decisions that shape what comes next.</h1><p>We help organisations turn strategy, data, and technology into lasting advantage.</p><Link className="button" href="#contact">Schedule a consultation</Link></div></section>

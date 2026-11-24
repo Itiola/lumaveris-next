@@ -2,6 +2,8 @@ import { InsightsDirectory } from "@/components/InsightsDirectory";
 import { topics } from "@/lib/content";
 import { getInsights } from "@/lib/insights";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Insights" };
 
 export default async function InsightsPage() {

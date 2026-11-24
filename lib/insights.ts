@@ -3,24 +3,20 @@ import { sanityClient } from "@/lib/sanity";
 
 const insightFields = [
   '{',
-  '"slug": slug.current, title, excerpt,',
-  '"topics": topics[]->title,',
+  '"slug": slug.current, title, excerpt, featured,',
+  '"topics": coalesce(topics[]->title, []),',
   '"image": coverImage.asset->url,',
   '"readingTime": coalesce(readingTime, "5 min read"),',
-  '"body": body[]{',
-  '_type == "block" => {',
-  '"heading": select(style == "h2" => pt::text(@), null),',
-  '"text": pt::text(@)',
-  '}',
-  '}',
+  '"portableBody": body,',
+  '"body": []',
   '}'
 ].join(" ");
 
-const allInsightsQuery = '*[_type == "article" && defined(slug.current) && defined(publishedAt)] | order(publishedAt desc) ' + insightFields;
-const insightBySlugQuery = '*[_type == "article" && slug.current == $slug][0] ' + insightFields;
+const allInsightsQuery = '*[_type == "article" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) ' + insightFields;
+const insightBySlugQuery = '*[_type == "article" && slug.current == $slug && defined(publishedAt) && publishedAt <= now()][0] ' + insightFields;
 
 function usableInsight(value: Partial<Insight>): value is Insight {
-  return Boolean(value.slug && value.title && value.excerpt && value.image && value.topics && value.body);
+  return Boolean(value.slug && value.title && value.excerpt && value.image && value.topics && value.portableBody);
 }
 
 export async function getInsights(): Promise<Insight[]> {

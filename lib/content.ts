@@ -5,6 +5,8 @@ export type Insight = {
   topics: string[];
   image: string;
   readingTime: string;
+  featured?: boolean;
+  portableBody?: import('@portabletext/react').PortableTextBlock[];
   body: { heading?: string; text: string }[];
 };
 

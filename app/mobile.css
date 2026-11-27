@@ -2,7 +2,8 @@
 @media (max-width:760px) {
   .nav-links { display:none; }
   .mobile-menu { display:block; position:relative; }
-  .mobile-menu summary { cursor:pointer; padding:.5rem; font-weight:700; }
+  .mobile-menu summary { cursor:pointer; width:44px; height:44px; display:grid; place-items:center; border:1px solid #dce5e2; border-radius:50%; font-weight:700; list-style:none; }
+  .mobile-menu summary::-webkit-details-marker { display:none; }
   .mobile-menu div { position:absolute; right:0; top:100%; width:220px; padding:1rem; background:white; border:1px solid #d9e3e0; box-shadow:0 8px 20px #0002; }
   .mobile-menu a { display:block; padding:.5rem; text-decoration:none; }
 }

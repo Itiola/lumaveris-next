@@ -16,6 +16,7 @@ export function Header() {
       <nav className="nav container" aria-label="Main navigation">
         <Link className="brand" href="/">Lumaveris</Link>
         <div className="nav-links">{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</div>
+        <details className="mobile-menu"><summary>Menu</summary><div>{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</div></details>
       </nav>
     </header>
   );

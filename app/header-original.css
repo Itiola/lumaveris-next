@@ -2,5 +2,7 @@
 .nav{position:relative;display:flex;align-items:center;justify-content:space-between;width:min(92%,1160px);height:100%;min-height:0;margin:auto}
 .nav-links{display:flex;align-items:center;gap:clamp(.85rem,1.65vw,1.65rem);margin-left:auto}
 .nav-links a{font-family:Inter,Arial,sans-serif;font-weight:700;letter-spacing:.01em}
+@media(max-width:860px){.nav-links{display:none}.nav .brand{position:absolute;left:50%;transform:translateX(-50%)}.original-menu-button{flex:0 0 44px}}
+@media(max-width:560px){.nav .brand svg{width:145px}}
 @media(min-width:861px){.site-header{height:82px}.nav{width:min(94%,1160px);justify-content:flex-start}.nav .brand{position:static;flex:0 0 auto;transform:none;padding-right:2rem;border-right:1px solid #dce5e2}.nav .brand svg{width:184px;height:auto}.nav-links a:last-child{margin-left:.25rem;border-radius:2px}}
 @media(max-width:860px){.nav{min-height:0}.nav .brand svg{width:172px;height:auto}.mobile-menu div{z-index:90}.mobile-menu a{display:flex;align-items:center;justify-content:space-between}.mobile-menu a:not(:last-child)::after{color:#087875;content:'↗';font:500 1rem/1 Inter,Arial,sans-serif;opacity:0;transform:translateX(-6px);transition:.18s}.mobile-menu a:hover::after,.mobile-menu a:focus-visible::after{opacity:1;transform:translateX(0)}}

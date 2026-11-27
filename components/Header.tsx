@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -13,14 +13,24 @@ const links = [
 ];
 
 export function Header() {
-  const mobileMenu = useRef<HTMLDetailsElement>(null);
+  const [open, setOpen] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setOpen(false); button.current?.focus(); } };
+    document.addEventListener('keydown', close);
+    return () => { document.body.style.overflow = previous; document.removeEventListener('keydown', close); };
+  }, [open]);
   return (
-    <header className="site-header">
+    <><header className="site-header">
       <nav className="nav container" aria-label="Main navigation">
-        <details className="mobile-menu" ref={mobileMenu}><summary aria-label="Toggle navigation"><span /><span /><span /></summary><div>{links.map(link => <Link key={link.href} href={link.href} onClick={() => { if (mobileMenu.current) mobileMenu.current.open = false; }}>{link.label}</Link>)}</div></details>
-        <Link className="brand" href="/" aria-label="Lumaveris Home"><svg viewBox="0 0 600 200" width="184" height="62" aria-hidden="true"><text x="0" y="150" fontFamily="Montserrat, sans-serif" fontSize="100" fill="#008080">Luma</text><text x="250" y="150" fontFamily="Montserrat, sans-serif" fontSize="100" fill="#4F4F4F">veris</text></svg></Link>
+        <button ref={button} type="button" className={'original-menu-button' + (open ? ' is-open' : '')} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-expanded={open} aria-controls="original-mobile-menu" onClick={() => setOpen(!open)}><span /><span /><span /></button>
+        <Link className="brand" href="/" aria-label="Lumaveris Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="200" height="70" aria-hidden="true" fontWeight="400"><text x="0" y="150" fontFamily="Montserrat, sans-serif" fontSize="100" fill="#008080">Luma</text><text x="250" y="150" fontFamily="Montserrat, sans-serif" fontSize="100" fill="#4F4F4F">veris</text></svg></Link>
         <div className="nav-links">{links.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</div>
       </nav>
     </header>
+    <nav id="original-mobile-menu" className={'original-mobile-menu' + (open ? ' is-open' : '')} aria-label="Mobile navigation" inert={!open}><ul>{links.map(link => <li key={link.href}><Link href={link.href} onClick={() => setOpen(false)}>{link.label}</Link></li>)}</ul></nav></>
   );
 }

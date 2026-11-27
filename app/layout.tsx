@@ -3,6 +3,7 @@ import "./globals.css";
 import "./mobile.css";
 import "./original.css";
 import "./original-refinements.css";
+import "./header-original.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 

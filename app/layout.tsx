@@ -5,6 +5,7 @@ import "./original.css";
 import "./original-refinements.css";
 import "./header-original.css";
 import "./header-final.css";
+import "./insights-design.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
